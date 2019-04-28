@@ -1,5 +1,4 @@
-{% set version = '1.8-3' %}
-
+{% set version = '1.8-4' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -8,45 +7,60 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: xtable_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/xtable_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/xtable/xtable_{{ version }}.tar.gz
-
-
-  sha256: 53b2b0fff8d7a8bba434063c2a01b867f510a4389ded2691fbedbc845f08c325
+    - {{ cran_mirror }}/src/contrib/xtable_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/xtable/xtable_{{ version }}.tar.gz
+  sha256: 5abec0e8c27865ef0880f1d19c9f9ca7cc0fd24eadaa72bcd270c3fb4075fd1c
 
 build:
+  merge_build_host: True  # [win]
+  number: 0
   noarch: generic
-  number: 2000
-
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
+    - {{posix}}zip               # [win]
+  host:
     - r-base
-
   run:
     - r-base
 
 test:
   commands:
-    - $R -e "library('xtable')"  # [not win]
+    - $R -e "library('xtable')"           # [not win]
     - "\"%R%\" -e \"library('xtable')\""  # [win]
-
-
 
 about:
   home: http://xtable.r-forge.r-project.org/
   license: GPL (>= 2)
   summary: Coerce data to LaTeX and HTML tables.
   license_family: GPL3
-
-
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
 
 extra:
   recipe-maintainers:
+    - conda-forge/r
     - croth1
     - halldc
+
+# Package: xtable
+# Version: 1.8-4
+# Date: 2019-04-08
+# Title: Export Tables to LaTeX or HTML
+# Authors@R: c(person("David B.", "Dahl", role="aut"), person("David", "Scott", role=c("aut","cre"), email="d.scott@auckland.ac.nz"), person("Charles", "Roosen", role="aut"), person("Arni", "Magnusson", role="aut"), person("Jonathan", "Swinton", role="aut"), person("Ajay", "Shah", role="ctb"), person("Arne", "Henningsen", role="ctb"), person("Benno", "Puetz", role="ctb"), person("Bernhard", "Pfaff", role="ctb"), person("Claudio", "Agostinelli", role="ctb"), person("Claudius", "Loehnert", role="ctb"), person("David", "Mitchell", role="ctb"), person("David", "Whiting", role="ctb"), person("Fernando da", "Rosa", role="ctb"), person("Guido", "Gay", role="ctb"), person("Guido", "Schulz", role="ctb"), person("Ian", "Fellows", role="ctb"), person("Jeff", "Laake", role="ctb"), person("John", "Walker", role="ctb"), person("Jun", "Yan", role="ctb"), person("Liviu", "Andronic", role="ctb"), person("Markus", "Loecher", role="ctb"), person("Martin", "Gubri", role="ctb"), person("Matthieu", "Stigler", role="ctb"), person("Robert", "Castelo", role="ctb"), person("Seth", "Falcon", role="ctb"), person("Stefan", "Edwards", role="ctb"), person("Sven", "Garbade", role="ctb"), person("Uwe", "Ligges", role="ctb"))
+# Maintainer: David Scott <d.scott@auckland.ac.nz>
+# Imports: stats, utils
+# Suggests: knitr, plm, zoo, survival
+# VignetteBuilder: knitr
+# Description: Coerce data to LaTeX and HTML tables.
+# URL: http://xtable.r-forge.r-project.org/
+# Depends: R (>= 2.10.0)
+# License: GPL (>= 2)
+# Repository: CRAN
+# NeedsCompilation: no
+# Packaged: 2019-04-21 10:56:51 UTC; dsco036
+# Author: David B. Dahl [aut], David Scott [aut, cre], Charles Roosen [aut], Arni Magnusson [aut], Jonathan Swinton [aut], Ajay Shah [ctb], Arne Henningsen [ctb], Benno Puetz [ctb], Bernhard Pfaff [ctb], Claudio Agostinelli [ctb], Claudius Loehnert [ctb], David Mitchell [ctb], David Whiting [ctb], Fernando da Rosa [ctb], Guido Gay [ctb], Guido Schulz [ctb], Ian Fellows [ctb], Jeff Laake [ctb], John Walker [ctb], Jun Yan [ctb], Liviu Andronic [ctb], Markus Loecher [ctb], Martin Gubri [ctb], Matthieu Stigler [ctb], Robert Castelo [ctb], Seth Falcon [ctb], Stefan Edwards [ctb], Sven Garbade [ctb], Uwe Ligges [ctb]
+# Date/Publication: 2019-04-21 12:20:03 UTC
