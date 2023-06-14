@@ -1,11 +1,11 @@
-About r-xtable
-==============
+About r-xtable-feedstock
+========================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-xtable-feedstock/blob/main/LICENSE.txt)
 
 Home: http://xtable.r-forge.r-project.org/
 
 Package license: GPL (>= 2)
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-xtable-feedstock/blob/main/LICENSE.txt)
 
 Summary: Coerce data to LaTeX and HTML tables.
 
